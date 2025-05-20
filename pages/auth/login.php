@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Skydash Admin</title>
+  <title>Ekologika</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="../assets/vendors/feather/feather.css">
   <link rel="stylesheet" href="../assets/vendors/ti-icons/css/themify-icons.css">
@@ -16,7 +16,7 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="../assets/css/vertical-layout-light/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="../assets/images/favicon.png" />
+  <link rel="shortcut icon" href="../assets/images/logo32.png" />
 </head>
 
 <body>
@@ -29,11 +29,11 @@
               <div class="brand-logo">
                 <img src="../assets/images/logo.svg" alt="logo">
               </div>
-              <h4>Hello! let's get started</h4>
-              <h6 class="font-weight-light">Sign in to continue.</h6>
+              <h4>Selamat datang!</h4>
+              <h6 class="font-weight-light">Silahkan masuk terlebih dahulu.</h6>
               <form class="pt-3" action="" method="post">
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username" name="email">
+                  <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username/Email" name="email">
                 </div>
                 <div class="form-group">
                   <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password" name="password">
@@ -43,16 +43,16 @@
                   <input type="submit" value="Sign In" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
                 </div>
                 <div class="my-2 d-flex justify-content-between align-items-center">
-                  <div class="form-check">
+                  <!-- <div class="form-check">
                     <label class="form-check-label text-muted">
                       <input type="checkbox" class="form-check-input">
                       Keep me signed in
                     </label>
-                  </div>
-                  <a href="#" class="auth-link text-black">Forgot password?</a>
+                  </div> -->
+                  <a href="#" class="auth-link text-black">Lupa password?</a>
                 </div>
                 <div class="text-center mt-4 font-weight-light">
-                  Don't have an account? <a href="register.php" class="text-primary">Create</a>
+                  Belum punya akun? <a href="register.php" class="text-primary">Buat akun</a>
                 </div>
               </form>
             </div>
@@ -82,40 +82,40 @@
 
 <?php
 session_start();
-require __DIR__ . '/../../vendor/autoload.php';
+require '../../vendor/autoload.php';
 
 use MongoDB\Client;
 
-$client = new Client("mongodb://localhost:27017");
-$database = $client->selectDatabase('user_database');
-$collection = $database->selectCollection('users');
+// Pastikan fungsi ini ada di luar kondisi `if`
+function getMongoDBCollection()
+{
+  $client = new Client("mongodb://localhost:27017"); // Pastikan MongoDB berjalan
+  return $client->your_database->users; // Ganti 'your_database' sesuai nama database
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+  $collection = getMongoDBCollection(); // Panggil fungsi dengan benar
 
-    // Cari user berdasarkan email
-    $user = $collection->findOne(['email' => $email]);
+  $identifier = $_POST["email"]; // Bisa berupa email atau username
+  $password = $_POST["password"];
 
-    // Jika user ditemukan dan password sesuai
-    if ($user && password_verify($password, $user['password'])) {
-        $_SESSION['username'] = $user['username'];
-        $_SESSION['email'] = $user['email'];
-        $_SESSION['role'] = $user['role']; // Simpan role dalam session
+  // Cari pengguna berdasarkan email ATAU username
+  $user = $collection->findOne([
+    '$or' => [
+      ['email' => $identifier],
+      ['username' => $identifier]
+    ]
+  ]);
 
-        // Arahkan ke halaman sesuai role
-        if ($user['role'] === 'user') {
-            header("Location: ../index.php");
-        } elseif ($user['role'] === 'admin') {
-            header("Location: ../admin_dashboard.php");
-        } elseif ($user['role'] === 'super_admin') {
-            header("Location: ../super_admin_dashboard.php");
-        } else {
-            echo "Role tidak dikenali.";
-        }
-        exit();
-    } else {
-        echo "Login gagal! Email atau password salah.";
-    }
+  if ($user && password_verify($password, $user["password"])) {
+    // Set sesi
+    $_SESSION["user_id"] = (string) $user["_id"];
+    $_SESSION["username"] = $user["username"];
+
+    header("Location: ../user/index.php");
+    exit;
+  } else {
+    echo "Login gagal. Periksa email/username dan password.";
+  }
 }
 ?>
