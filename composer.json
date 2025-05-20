@@ -1,0 +1,17 @@
+{
+    "name": "rahma/ekologika",
+    "autoload": {
+        "psr-4": {
+            "Rahma\\Ekologika\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Rahma",
+            "email": "rahma.aulia.daffina@gmail.com"
+        }
+    ],
+    "require": {
+        "mongodb/mongodb": "^2.0"
+    }
+}

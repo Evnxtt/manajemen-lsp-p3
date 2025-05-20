@@ -31,15 +31,16 @@
               </div>
               <h4>Hello! let's get started</h4>
               <h6 class="font-weight-light">Sign in to continue.</h6>
-              <form class="pt-3">
+              <form class="pt-3" action="" method="post">
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username">
+                  <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username" name="email">
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
+                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password" name="password">
                 </div>
                 <div class="mt-3">
-                  <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="../assets/index.html">SIGN IN</a>
+                  <!-- <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="../assets/index.html">SIGN IN</a> -->
+                  <input type="submit" value="Sign In" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
                 </div>
                 <div class="my-2 d-flex justify-content-between align-items-center">
                   <div class="form-check">
@@ -78,3 +79,43 @@
 </body>
 
 </html>
+
+<?php
+session_start();
+require __DIR__ . '/../../vendor/autoload.php';
+
+use MongoDB\Client;
+
+$client = new Client("mongodb://localhost:27017");
+$database = $client->selectDatabase('user_database');
+$collection = $database->selectCollection('users');
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Cari user berdasarkan email
+    $user = $collection->findOne(['email' => $email]);
+
+    // Jika user ditemukan dan password sesuai
+    if ($user && password_verify($password, $user['password'])) {
+        $_SESSION['username'] = $user['username'];
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['role'] = $user['role']; // Simpan role dalam session
+
+        // Arahkan ke halaman sesuai role
+        if ($user['role'] === 'user') {
+            header("Location: ../index.php");
+        } elseif ($user['role'] === 'admin') {
+            header("Location: ../admin_dashboard.php");
+        } elseif ($user['role'] === 'super_admin') {
+            header("Location: ../super_admin_dashboard.php");
+        } else {
+            echo "Role tidak dikenali.";
+        }
+        exit();
+    } else {
+        echo "Login gagal! Email atau password salah.";
+    }
+}
+?>
