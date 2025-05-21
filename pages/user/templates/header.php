@@ -18,6 +18,7 @@
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="../assets/css/vertical-layout-light/style.css">
+    <link rel="stylesheet" href="../assets/css/vertical-layout-light/testcss.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="../assets/images/logo32.png" />
 </head>
@@ -100,13 +101,17 @@
                             <img src="../assets/images/faces/face28.jpg" alt="profile" />
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                            <a class="dropdown-item">
+                            <a class="dropdown-item" href="setting.php">
                                 <i class="ti-settings text-primary"></i>
-                                Settings
+                                Pengaturan
                             </a>
-                            <a class="dropdown-item" href="../../auth/login.php">
+                            <a class="dropdown-item" href="rubah_password.php">
+                                <i class="ti-unlock text-primary"></i>
+                                Rubah Password
+                            </a>
+                            <a class="dropdown-item" href="../auth/logout.php">
                                 <i class="ti-power-off text-primary"></i>
-                                Logout
+                                Keluar
                             </a>
                         </div>
                     </li>
@@ -299,105 +304,92 @@
             <!-- partial:partials/_sidebar.html -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">
-                            <i class="icon-grid menu-icon"></i>
-                            <span class="menu-title">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                            <i class="icon-layout menu-icon"></i>
-                            <span class="menu-title">UI Elements</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="ui-basic">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
-                            <i class="icon-columns menu-icon"></i>
-                            <span class="menu-title">Form elements</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="form-elements">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-                            <i class="icon-bar-graph menu-icon"></i>
-                            <span class="menu-title">Charts</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="charts">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-                            <i class="icon-grid-2 menu-icon"></i>
-                            <span class="menu-title">Tables</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="tables">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-                            <i class="icon-contract menu-icon"></i>
-                            <span class="menu-title">Icons</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="icons">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Mdi icons</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                            <i class="icon-head menu-icon"></i>
-                            <span class="menu-title">User Pages</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="auth">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
-                            <i class="icon-ban menu-icon"></i>
-                            <span class="menu-title">Error pages</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="error">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-                                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="pages/documentation/documentation.html">
-                            <i class="icon-paper menu-icon"></i>
-                            <span class="menu-title">Documentation</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php">
+                    <i class="icon-grid menu-icon"></i>
+                    <span class="menu-title">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#informasi" aria-expanded="false" aria-controls="informasi">
+                    <i class="icon-columns menu-icon"></i>
+                    <span class="menu-title">Informasi</span>
+                    <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="informasi">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="berita_pelatihan.php">Berita Pelatihan</a></li>
+                        <li class="nav-item"><a class="nav-link" href="list_pelatihan.php">List Pelatihan</a></li>
+                    </ul>
+                    </div>
+                </li>
+                                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#pendaftaran" aria-expanded="false" aria-controls="pendaftaran">
+                    <i class="icon-grid menu-icon"></i>
+                    <span class="menu-title">Pendaftaran</span>
+                    <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="pendaftaran">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="pendaftaran.php">Pendaftaran</a></li>
+                        <li class="nav-item"><a class="nav-link" href="unduh_formulir.php">Unduh Formulir</a></li>
+                        <li class="nav-item"><a class="nav-link" href="unggah_formulir.php">Unggah Formulir</a></li>
+                        <li class="nav-item"><a class="nav-link" href="cek_status.php">Cek Status</a></li>
+                    </ul>
+                    </div>
+                </li>
+                                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#materi" aria-expanded="false" aria-controls="materi">
+                    <i class="icon-grid menu-icon"></i>
+                    <span class="menu-title">Materi & Modul</span>
+                    <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="materi">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="pages/kategori/business.html">Tautan Kelas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="pages/kategori/media.html">Modul Pelatihan</a></li>
+                    </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#program" aria-expanded="false" aria-controls="program">
+                    <i class="icon-bar-graph menu-icon"></i>
+                    <span class="menu-title">Program Pelatihan</span>
+                    <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="program">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="pages/kategori/business.html">Daftar Pelatihan</a></li>
+                        <li class="nav-item"><a class="nav-link" href="pages/kategori/media.html">Program Saya</a></li>
+                    </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#rs" aria-expanded="false" aria-controls="rs">
+                    <i class="icon-bar-graph menu-icon"></i>
+                    <span class="menu-title">Riwayat & Status</span>
+                    <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="rs">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="pages/kategori/business.html">Riwayat Pendaftaran</a></li>
+                        <li class="nav-item"><a class="nav-link" href="pages/kategori/media.html">Status Verifikasi</a></li>
+                        <li class="nav-item"><a class="nav-link" href="pages/kategori/teknologi.html">Status Kelulusan</a></li>
+                    </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#sertif" aria-expanded="false" aria-controls="sertif">
+                    <i class="icon-bar-graph menu-icon"></i>
+                    <span class="menu-title">Sertifikasi</span>
+                    <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="sertif">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="pages/charts/sertifikat.html">Sertifikat Saya</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="pages/charts/status_kelulusan.html">Unduh Sertifikat</a></li>
+                    </ul>
+                    </div>
+                </li>
+                </li>
+                </nav>

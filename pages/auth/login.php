@@ -75,6 +75,7 @@
   <script src="../assets/js/template.js"></script>
   <script src="../assets/js/settings.js"></script>
   <script src="../assets/js/todolist.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- endinject -->
 </body>
 
@@ -86,36 +87,83 @@ require '../../vendor/autoload.php';
 
 use MongoDB\Client;
 
-// Pastikan fungsi ini ada di luar kondisi `if`
 function getMongoDBCollection()
 {
-  $client = new Client("mongodb://localhost:27017"); // Pastikan MongoDB berjalan
-  return $client->your_database->users; // Ganti 'your_database' sesuai nama database
+  $client = new Client("mongodb://localhost:27017");
+  return $client->lsp_p3->users; 
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $collection = getMongoDBCollection(); // Panggil fungsi dengan benar
+  $collection = getMongoDBCollection();
 
-  $identifier = $_POST["email"]; // Bisa berupa email atau username
+  $identifier = $_POST["email"]; 
   $password = $_POST["password"];
 
-  // Cari pengguna berdasarkan email ATAU username
   $user = $collection->findOne([
     '$or' => [
       ['email' => $identifier],
-      ['username' => $identifier]
+      ['username' => $identifier],
     ]
   ]);
 
-  if ($user && password_verify($password, $user["password"])) {
-    // Set sesi
-    $_SESSION["user_id"] = (string) $user["_id"];
-    $_SESSION["username"] = $user["username"];
+  if ($user) {
+    if (isset($user['status']) && strtolower($user['status']) === 'nonaktif') {
+      echo "<script>
+        Swal.fire({
+          icon: 'error',
+          title: 'Akun Nonaktif',
+          text: 'Akun anda nonaktif. Silakan hubungi admin.',
+          confirmButtonText: 'OK'
+        });
+      </script>";
+      exit;
+    }
 
-    header("Location: ../user/index.php");
-    exit;
+    if (password_verify($password, $user["password"])) {
+
+      $_SESSION["user_id"] = (string) $user["_id"];
+      $_SESSION["username"] = $user["username"];
+      $_SESSION["role"] = $user["role"];
+
+      $redirectUrl = '';
+      if ($user["role"] === "admin") {
+        $redirectUrl = '../admin/index.php';
+      } elseif ($user["role"] === "super_admin") {
+        $redirectUrl = '../super_admin/index.php';
+      } else {
+        $redirectUrl = '../user/index.php'; 
+      }
+
+      echo "<script>
+        Swal.fire({
+          icon: 'success',
+          title: 'Berhasil masuk!',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          window.location.href = '$redirectUrl';
+        });
+      </script>";
+      exit;
+
+    } else {
+      echo "<script>
+        Swal.fire({
+          icon: 'error',
+          title: 'Gagal masuk!',
+          text: 'Password salah.',
+          confirmButtonText: 'OK'
+        });
+      </script>";
+    }
   } else {
-    echo "Login gagal. Periksa email/username dan password.";
+    echo "<script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Gagal masuk!',
+        text: 'Email atau username tidak ditemukan.',
+        confirmButtonText: 'OK'
+      });
+    </script>";
   }
 }
 ?>

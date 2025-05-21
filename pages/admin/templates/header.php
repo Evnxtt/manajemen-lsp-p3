@@ -100,13 +100,13 @@
                             <img src="../assets/images/faces/face28.jpg" alt="profile" />
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                            <a class="dropdown-item">
-                                <i class="ti-settings text-primary"></i>
-                                Settings
+                            <a class="dropdown-item" href="rubah_password.php">
+                                <i class="ti-unlock text-primary"></i>
+                                Rubah Password
                             </a>
-                            <a class="dropdown-item" href="../../auth/login.php">
+                            <a class="dropdown-item" href="../auth/logout.php">
                                 <i class="ti-power-off text-primary"></i>
-                                Logout
+                                Keluar
                             </a>
                         </div>
                     </li>
@@ -362,12 +362,18 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
                             <i class="icon-contract menu-icon"></i>
-                            <span class="menu-title">Lihat Akun</span>
+                            <span class="menu-title">Daftar Pengguna</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="collapse" id="icons">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Password</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="aktivasi_akun.php">Aktivasi Pengguna</a></li>
+                            </ul>
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="nonaktifkan_akun.php">Nonaktifkan <br> Pengguna</a></li>
+                            </ul>
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="list_akun.php">Hapus Pengguna</a></li>
                             </ul>
                         </div>
                     </li>

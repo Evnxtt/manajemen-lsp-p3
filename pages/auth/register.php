@@ -33,13 +33,13 @@
               <h6 class="font-weight-light">Silahkan registrasi terlebih dahulu</h6>
               <form class="pt-3" action="" method="post">
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-lg" id="exampleInputUsername1" placeholder="Username" name="username">
+                  <input type="text" class="form-control form-control-lg" id="exampleInputUsername1" placeholder="Username" name="username" required>
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email" name="email">
+                  <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email" name="email" required>
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password" name="password">
+                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password" name="password" required>
                 </div>
                 <div class="mb-4">
                   <div class="form-check">
@@ -101,11 +101,11 @@ use MongoDB\Client;
 
 function registerUser($username, $email, $password)
 {
-  // Koneksi ke MongoDB
-  $client = new Client("mongodb://localhost:27017");
-  $collection = $client->your_database->users; // Ganti 'your_database' sesuai nama database
 
-  // Periksa apakah email sudah terdaftar
+  $client = new Client("mongodb://localhost:27017");
+  $collection = $client->lsp_p3->users; 
+
+
   $existingUser = $collection->findOne(['email' => $email]);
   if ($existingUser) {
     return "Email sudah digunakan!";
@@ -122,24 +122,20 @@ function registerUser($username, $email, $password)
     return;
   }
 
-  // Hash password untuk keamanan
+
   $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-  // Simpan data pengguna
+
   $insertResult = $collection->insertOne([
     'username' => $username,
     'email' => $email,
-    'password' => $hashedPassword
+    'password' => $hashedPassword,
+    'role' => 'user',
+    'status' => 'nonaktif'
   ]);
 
-  // if ($insertResult->getInsertedCount() > 0) {
-  //   return "Registrasi berhasil!";
-  // } else {
-  //   return "Registrasi gagal!";
-  // }
 }
 
-// Jika form dikirimkan, tangani data
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $username = $_POST["username"] ?? "";
   $email = $_POST["email"] ?? "";
@@ -156,7 +152,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     });
   </script>";
 }
-
-
 
 ?>
