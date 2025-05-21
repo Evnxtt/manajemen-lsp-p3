@@ -103,7 +103,7 @@ function registerUser($username, $email, $password)
 {
 
   $client = new Client("mongodb://localhost:27017");
-  $collection = $client->lsp_p3->users; 
+  $collection = $client->lsp_p3->users;
 
 
   $existingUser = $collection->findOne(['email' => $email]);
@@ -133,7 +133,6 @@ function registerUser($username, $email, $password)
     'role' => 'user',
     'status' => 'nonaktif'
   ]);
-
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

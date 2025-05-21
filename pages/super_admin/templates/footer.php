@@ -37,85 +37,112 @@
     <!-- Custom js for this page-->
     <script src="../assets/js/dashboard.js"></script>
     <script src="../assets/js/Chart.roundedBarCharts.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const activateButtons = document.querySelectorAll('.activate-btn');
+        document.addEventListener('DOMContentLoaded', function() {
+            const activateButtons = document.querySelectorAll('.activate-btn');
 
-        activateButtons.forEach(function (button) {
-        button.addEventListener('click', function (e) {
-            e.preventDefault(); // hindari default action
+            activateButtons.forEach(function(button) {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault(); // hindari default action
 
-            const userId = this.getAttribute('data-id');
+                    const userId = this.getAttribute('data-id');
 
-            Swal.fire({
-            title: 'Yakin ingin aktivasi akun ini?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Ya, aktivasi!',
-            cancelButtonText: 'Batal'
-            }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = `aktivasi_akun.php?activate=${userId}`;
-            }
+                    Swal.fire({
+                        title: 'Yakin ingin aktivasi akun ini?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Ya, aktivasi!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = `aktivasi_akun.php?activate=${userId}`;
+                        }
+                    });
+                });
             });
         });
-        });
-    });
     </script>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const activateButtons = document.querySelectorAll('.deactivate-btn');
+        document.addEventListener('DOMContentLoaded', function() {
+            const activateButtons = document.querySelectorAll('.deactivate-btn');
 
-        activateButtons.forEach(function (button) {
-        button.addEventListener('click', function (e) {
-            e.preventDefault(); // hindari default action
+            activateButtons.forEach(function(button) {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault(); // hindari default action
 
-            const userId = this.getAttribute('data-id');
+                    const userId = this.getAttribute('data-id');
 
-            Swal.fire({
-            title: 'Yakin ingin menonaktifkan akun ini?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Ya, Nonaktifkan!',
-            cancelButtonText: 'Batal'
-            }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = `nonaktifkan_akun.php?activate=${userId}`;
-            }
+                    Swal.fire({
+                        title: 'Yakin ingin menonaktifkan akun ini?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Ya, Nonaktifkan!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = `nonaktifkan_akun.php?activate=${userId}`;
+                        }
+                    });
+                });
             });
         });
-        });
-    });
     </script>
     <!-- End custom js for this page-->
 
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const deleteButtons = document.querySelectorAll('.delete-user-btn');
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteButtons = document.querySelectorAll('.delete-user-btn');
 
-        deleteButtons.forEach(function (button) {
-        button.addEventListener('click', function (e) {
-            e.preventDefault();
+            deleteButtons.forEach(function(button) {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
 
-            const userId = this.getAttribute('data-id');
+                    const userId = this.getAttribute('data-id');
 
-            Swal.fire({
-            title: 'Yakin ingin menghapus pengguna ini?',
-            text: "Tindakan ini tidak dapat dibatalkan!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Ya, hapus!',
-            cancelButtonText: 'Batal'
-            }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = `list_akun.php?delete=${userId}`;
-            }
+                    Swal.fire({
+                        title: 'Yakin ingin menghapus pengguna ini?',
+                        text: "Tindakan ini tidak dapat dibatalkan!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Ya, hapus!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = `list_akun.php?delete=${userId}`;
+                        }
+                    });
+                });
             });
         });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteButtons = document.querySelectorAll('.delete-admin-btn');
+
+            deleteButtons.forEach(function(button) {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    const userId = this.getAttribute('data-id');
+
+                    Swal.fire({
+                        title: 'Yakin ingin menghapus admin ini?',
+                        text: "Tindakan ini tidak dapat dibatalkan!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Ya, hapus!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = `list_admin.php?delete=${userId}`;
+                        }
+                    });
+                });
+            });
         });
-    });
     </script>
     <!-- End custom js for this page-->
     </body>

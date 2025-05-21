@@ -27,8 +27,8 @@
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="../assets/images/logo.svg" class="mr-2" alt="logo" /></a>
-                <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../assets/images/logo-mini.svg" alt="logo" /></a>
+                <a class="navbar-brand brand-logo mr-5" href="index.php"><img src="../assets/images/logo.svg" class="mr-2" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="index.php"><img src="../assets/images/logo-mini.svg" alt="logo" /></a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
                 <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -300,7 +300,7 @@
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="index.php">
                             <i class="icon-grid menu-icon"></i>
                             <span class="menu-title">Dashboard</span>
                         </a>
@@ -341,7 +341,7 @@
                         <div class="collapse" id="charts">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">Berita</a></li>
-                                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Pelatihan dan Sertifikasi</a></li>
+                                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Pelatihan dan<br>Sertifikasi</a></li>
                                 <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Detail Skema</a></li>
                             </ul>
                         </div>
@@ -378,15 +378,17 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#" aria-expanded="false" aria-controls="icons">
+                        <a class="nav-link" data-toggle="collapse" href="#admin" aria-expanded="false" aria-controls="admin">
                             <i class="icon-contract menu-icon"></i>
-                            <span class="menu-title">Admin</span>
+                            <span class="menu-title">Daftar Admin</span>
                             <i class="menu-arrow"></i>
                         </a>
-                        <div class="collapse" id="icons">
+                        <div class="collapse" id="admin">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Add Admin</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Remove Admin</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="list_admin.php">List Admin</a></li>
+                            </ul>
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="tambah_admin.php">Tambah Admin</a></li>
                             </ul>
                         </div>
                     </li>

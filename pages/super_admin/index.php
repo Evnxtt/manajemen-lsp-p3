@@ -1,7 +1,20 @@
 <?php
 session_start();
 if (!isset($_SESSION["user_id"])) {
-  header("Location: login.php");
+  header("Location: ../auth/login.php");
+  exit;
+}
+
+if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "super_admin") {
+  echo "<script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Anda bukan super admin!',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        window.location.href = '../auth/login.php';
+      });
+    </script>";
   exit;
 }
 

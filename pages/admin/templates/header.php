@@ -27,8 +27,8 @@
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="../assets/images/logo.svg" class="mr-2" alt="logo" /></a>
-                <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../assets/images/logo-mini.svg" alt="logo" /></a>
+                <a class="navbar-brand brand-logo mr-5" href="index.php"><img src="../assets/images/logo.svg" class="mr-2" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="index.php"><img src="../assets/images/logo-mini.svg" alt="logo" /></a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
                 <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -300,10 +300,23 @@
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="index.php">
                             <i class="icon-grid menu-icon"></i>
                             <span class="menu-title">Dashboard</span>
                         </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#informasi" aria-expanded="false" aria-controls="informasi">
+                            <i class="icon-columns menu-icon"></i>
+                            <span class="menu-title">Informasi</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="informasi">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"><a class="nav-link" href="berita_pelatihan.php">Berita Pelatihan</a></li>
+                                <li class="nav-item"><a class="nav-link" href="list_pelatihan.php">List Pelatihan</a></li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
@@ -327,8 +340,7 @@
                         <div class="collapse" id="form-elements">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Unggah Sertifikat</a></li>
-                                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Sertifikat</a></li>
-                                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Status Kelulusan</a></li>
+                                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">List Sertifikat</a></li>
                             </ul>
                         </div>
                     </li>

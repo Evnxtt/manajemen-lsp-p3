@@ -18,7 +18,6 @@
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="../assets/css/vertical-layout-light/style.css">
-    <link rel="stylesheet" href="../assets/css/vertical-layout-light/testcss.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="../assets/images/logo32.png" />
 </head>
@@ -28,8 +27,8 @@
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="../assets/images/logo.svg" class="mr-2" alt="logo" /></a>
-                <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../assets/images/logo-mini.svg" alt="logo" /></a>
+                <a class="navbar-brand brand-logo mr-5" href="index.php"><img src="../assets/images/logo.svg" class="mr-2" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="index.php"><img src="../assets/images/logo-mini.svg" alt="logo" /></a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
                 <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -102,8 +101,8 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                             <a class="dropdown-item" href="setting.php">
-                                <i class="ti-settings text-primary"></i>
-                                Pengaturan
+                                <i class="ti-user text-primary"></i>
+                                Profile
                             </a>
                             <a class="dropdown-item" href="rubah_password.php">
                                 <i class="ti-unlock text-primary"></i>
@@ -304,92 +303,92 @@
             <!-- partial:partials/_sidebar.html -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php">
-                    <i class="icon-grid menu-icon"></i>
-                    <span class="menu-title">Dashboard</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#informasi" aria-expanded="false" aria-controls="informasi">
-                    <i class="icon-columns menu-icon"></i>
-                    <span class="menu-title">Informasi</span>
-                    <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="informasi">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="berita_pelatihan.php">Berita Pelatihan</a></li>
-                        <li class="nav-item"><a class="nav-link" href="list_pelatihan.php">List Pelatihan</a></li>
-                    </ul>
-                    </div>
-                </li>
-                                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#pendaftaran" aria-expanded="false" aria-controls="pendaftaran">
-                    <i class="icon-grid menu-icon"></i>
-                    <span class="menu-title">Pendaftaran</span>
-                    <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="pendaftaran">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="pendaftaran.php">Pendaftaran</a></li>
-                        <li class="nav-item"><a class="nav-link" href="unduh_formulir.php">Unduh Formulir</a></li>
-                        <li class="nav-item"><a class="nav-link" href="unggah_formulir.php">Unggah Formulir</a></li>
-                        <li class="nav-item"><a class="nav-link" href="cek_status.php">Cek Status</a></li>
-                    </ul>
-                    </div>
-                </li>
-                                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#materi" aria-expanded="false" aria-controls="materi">
-                    <i class="icon-grid menu-icon"></i>
-                    <span class="menu-title">Materi & Modul</span>
-                    <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="materi">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="pages/kategori/business.html">Tautan Kelas</a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/kategori/media.html">Modul Pelatihan</a></li>
-                    </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#program" aria-expanded="false" aria-controls="program">
-                    <i class="icon-bar-graph menu-icon"></i>
-                    <span class="menu-title">Program Pelatihan</span>
-                    <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="program">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="pages/kategori/business.html">Daftar Pelatihan</a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/kategori/media.html">Program Saya</a></li>
-                    </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#rs" aria-expanded="false" aria-controls="rs">
-                    <i class="icon-bar-graph menu-icon"></i>
-                    <span class="menu-title">Riwayat & Status</span>
-                    <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="rs">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="pages/kategori/business.html">Riwayat Pendaftaran</a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/kategori/media.html">Status Verifikasi</a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/kategori/teknologi.html">Status Kelulusan</a></li>
-                    </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#sertif" aria-expanded="false" aria-controls="sertif">
-                    <i class="icon-bar-graph menu-icon"></i>
-                    <span class="menu-title">Sertifikasi</span>
-                    <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="sertif">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="pages/charts/sertifikat.html">Sertifikat Saya</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/charts/status_kelulusan.html">Unduh Sertifikat</a></li>
-                    </ul>
-                    </div>
-                </li>
-                </li>
-                </nav>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php">
+                            <i class="icon-grid menu-icon"></i>
+                            <span class="menu-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#informasi" aria-expanded="false" aria-controls="informasi">
+                            <i class="icon-columns menu-icon"></i>
+                            <span class="menu-title">Informasi</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="informasi">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"><a class="nav-link" href="berita_pelatihan.php">Berita Pelatihan</a></li>
+                                <li class="nav-item"><a class="nav-link" href="list_pelatihan.php">List Pelatihan</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#pendaftaran" aria-expanded="false" aria-controls="pendaftaran">
+                            <i class="icon-grid menu-icon"></i>
+                            <span class="menu-title">Pendaftaran</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="pendaftaran">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"><a class="nav-link" href="pendaftaran.php">Pendaftaran</a></li>
+                                <li class="nav-item"><a class="nav-link" href="unduh_formulir.php">Unduh Formulir</a></li>
+                                <li class="nav-item"><a class="nav-link" href="unggah_formulir.php">Unggah Formulir</a></li>
+                                <li class="nav-item"><a class="nav-link" href="cek_status.php">Cek Status</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#materi" aria-expanded="false" aria-controls="materi">
+                            <i class="icon-grid menu-icon"></i>
+                            <span class="menu-title">Materi & Modul</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="materi">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"><a class="nav-link" href="pages/kategori/business.html">Tautan Kelas</a></li>
+                                <li class="nav-item"><a class="nav-link" href="pages/kategori/media.html">Modul Pelatihan</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#program" aria-expanded="false" aria-controls="program">
+                            <i class="icon-bar-graph menu-icon"></i>
+                            <span class="menu-title">Program Pelatihan</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="program">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"><a class="nav-link" href="pages/kategori/business.html">Daftar Pelatihan</a></li>
+                                <li class="nav-item"><a class="nav-link" href="pages/kategori/media.html">Program Saya</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#rs" aria-expanded="false" aria-controls="rs">
+                            <i class="icon-bar-graph menu-icon"></i>
+                            <span class="menu-title">Riwayat & Status</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="rs">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"><a class="nav-link" href="pages/kategori/business.html">Riwayat Pendaftaran</a></li>
+                                <li class="nav-item"><a class="nav-link" href="pages/kategori/media.html">Status Verifikasi</a></li>
+                                <li class="nav-item"><a class="nav-link" href="pages/kategori/teknologi.html">Status Kelulusan</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#sertif" aria-expanded="false" aria-controls="sertif">
+                            <i class="icon-bar-graph menu-icon"></i>
+                            <span class="menu-title">Sertifikasi</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="sertif">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="pages/charts/sertifikat.html">Sertifikat Saya</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="pages/charts/status_kelulusan.html">Unduh Sertifikat</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    </li>
+            </nav>
