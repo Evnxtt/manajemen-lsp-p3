@@ -18,91 +18,109 @@ if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "user") {
     exit;
 }
 
+require '../../vendor/autoload.php'; // MongoDB library
+use MongoDB\Client;
+
+$client = new Client("mongodb://localhost:27017");
+$collection = $client->lsp_p3->pelatihan;
+
+$beritaList = $collection->find([], ['sort' => ['pembuatan' => -1]]);
+
 ?>
 <!-- Include Header -->
 <link rel="stylesheet" href="../assets/css/vertical-layout-light/testcss.css">
 
 <?php include 'templates/header.php'; ?>
 
+<?php if (isset($_GET['hapus'])): ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            <?php if ($_GET['hapus'] === 'berhasil'): ?>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berita berhasil dihapus!',
+                    confirmButtonText: 'OK'
+                });
+            <?php elseif ($_GET['hapus'] === 'gagal'): ?>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal menghapus berita!',
+                    confirmButtonText: 'OK'
+                });
+            <?php elseif ($_GET['hapus'] === 'error'): ?>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Terjadi kesalahan saat menghapus!',
+                    confirmButtonText: 'OK'
+                });
+            <?php endif; ?>
+        });
+    </script>
+<?php endif; ?>
+
+<?php
+if (isset($_SESSION['success_message'])) {
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+    echo "<script>
+        Swal.fire({
+            icon: 'success',
+            title: '" . $_SESSION['success_message'] . "',
+            confirmButtonText: 'OK'
+        });
+    </script>";
+    unset($_SESSION['success_message']);
+}
+?>
+
 <!-- partial -->
 
 <!-- partial -->
 <div class="main-panel" style="background-color: #F5F7FF;">
     <div class="container">
-        <div class="card">
-            <img src="../assets/images/news/news.svg" alt="news">
-            <div class="card-content" style="background-color: #fffff8;">
-                <h2 class="course-title" style="line-height: 1.2;">LSP Ekologika Selenggarakan Uji Sertifikasi Profesi untuk Ahli Ekologi</h2>
-                <p>Kegiatan ini bertujuan meningkatkan kompetensi tenaga profesional di bidang pengelolaan lingkungan dan konservasi.</p>
-                <p class="price">Rp 2.300.000 <span class="bonus"></span></p>
-                <button type="button" class="btn btn-primary">Lihat Selengkapnya</button>
-            </div>
-        </div>
-        <div class="card">
-            <img src="../assets/images/news/news2.svg" alt="news">
-            <div class="card-content" style="background-color: #fffff8;">
-                <h2 class="course-title" style="line-height: 1.2;">LSP Ekologika Selenggarakan Uji Sertifikasi Profesi untuk Ahli Ekologi</h2>
-                <p>Kegiatan ini bertujuan meningkatkan kompetensi tenaga profesional di bidang pengelolaan lingkungan dan konservasi.</p>
-                <p class="price">Rp 2.300.000 <span class="bonus"></span></p>
-                <button type="button" class="btn btn-primary">Lihat Selengkapnya</button>
-            </div>
-        </div>
-        <div class="card">
-            <img src="../assets/images/news/news3.svg" alt="news">
-            <div class="card-content" style="background-color: #fffff8;">
-                <h2 class="course-title" style="line-height: 1.2;">Pelatihan dan Sertifikasi Ekolog: LSP Ekologika Hadir di 5 Kota Besar</h2>
-                <p>Program ini menyasar lulusan baru dan profesional muda yang ingin meningkatkan kredibilitas serta daya saing di dunia kerja, khususnya bidang ekologi.</p>
-                <p class="price">Rp 2.300.000 <span class="bonus"></span></p>
-                <button type="button" class="btn btn-primary">Lihat Selengkapnya</button>
-            </div>
-        </div>
-        <div class="card">
-            <img src="../assets/images/news/news4.svg" alt="news">
-            <div class="card-content" style="background-color: #fffff8;">
-                <h2 class="course-title" style="line-height: 1.2;">LSP Ekologika Launching Skema Baru Sertifikasi untuk Pengelola Sampah Organik</h2>
-                <p>Skema ini dirancang untuk mendukung ekonomi sirkular dan pengurangan sampah rumah tangga.</p>
-                <p class="price">Rp 2.300.000 <span class="bonus"></span></p>
-                <button type="button" class="btn btn-primary">Lihat Selengkapnya</button>
-            </div>
-        </div>
-        <div class="card">
-            <img src="../assets/images/news/news.svg" alt="news">
-            <div class="card-content" style="background-color: #fffff8;">
-                <h2 class="course-title" style="line-height: 1.2;">LSP Ekologika Selenggarakan Uji Sertifikasi Profesi untuk Ahli Ekologi</h2>
-                <p>Kegiatan ini bertujuan meningkatkan kompetensi tenaga profesional di bidang pengelolaan lingkungan dan konservasi.</p>
-                <p class="price">Rp 2.300.000 <span class="bonus"></span></p>
-                <button type="button" class="btn btn-primary">Lihat Selengkapnya</button>
-            </div>
-        </div>
-        <div class="card">
-            <img src="../assets/images/news/news2.svg" alt="news">
-            <div class="card-content" style="background-color: #fffff8;">
-                <h2 class="course-title" style="line-height: 1.2;">LSP Ekologika Selenggarakan Uji Sertifikasi Profesi untuk Ahli Ekologi</h2>
-                <p>Kegiatan ini bertujuan meningkatkan kompetensi tenaga profesional di bidang pengelolaan lingkungan dan konservasi.</p>
-                <p class="price">Rp 2.300.000 <span class="bonus"></span></p>
-                <button type="button" class="btn btn-primary">Lihat Selengkapnya</button>
-            </div>
-        </div>
-        <div class="card">
-            <img src="../assets/images/news/news3.svg" alt="news">
-            <div class="card-content" style="background-color: #fffff8;">
-                <h2 class="course-title" style="line-height: 1.2;">Pelatihan dan Sertifikasi Ekolog: LSP Ekologika Hadir di 5 Kota Besar</h2>
-                <p>Program ini menyasar lulusan baru dan profesional muda yang ingin meningkatkan kredibilitas serta daya saing di dunia kerja, khususnya bidang ekologi.</p>
-                <p class="price">Rp 2.300.000 <span class="bonus"></span></p>
-                <button type="button" class="btn btn-primary">Lihat Selengkapnya</button>
-            </div>
-        </div>
-        <div class="card">
-            <img src="../assets/images/news/news4.svg" alt="news">
-            <div class="card-content" style="background-color: #fffff8;">
-                <h2 class="course-title" style="line-height: 1.2;">LSP Ekologika Launching Skema Baru Sertifikasi untuk Pengelola Sampah Organik</h2>
-                <p>Skema ini dirancang untuk mendukung ekonomi sirkular dan pengurangan sampah rumah tangga.</p>
-                <p class="price">Rp 2.300.000 <span class="bonus"></span></p>
-                <button type="button" class="btn btn-primary">Lihat Selengkapnya</button>
-            </div>
-        </div>
+<?php
+    $beritaList = $collection->find([], ['sort' => ['pembuatan' => -1]]); // Urutkan berdasarkan tanggal pembuatan
+
+    foreach ($beritaList as $berita):
+        $judul = $berita['detail_pelatihan']['nama_pelatihan'] ?? '';
+        $ringkasan = $berita['detail_pelatihan']['deskripsi'] ?? '';
+        $biaya = $berita['detail_pelatihan']['biaya'] ?? '';
+        $gambar = $berita['gambar'] ?? '../assets/images/news/default.svg';
+
+        $id = (string)$berita['_id'];
+?>
+<div class="card">
+    <img src="<?= htmlspecialchars($gambar) ?>" alt="news" style="max-height: 200px; object-fit: cover;">
+    <div class="card-content" style="background-color: #fffff8;">
+        <h2 class="course-title" style="line-height: 1.2;"><?= htmlspecialchars($judul) ?></h2>
+        <p><?= htmlspecialchars($ringkasan) ?></p>
+        <p class="price"><?= htmlspecialchars($biaya) ?><span class="bonus"></span></p>
+        <a href="detail_pelatihan.php?id=<?= $id ?>" class="btn btn-primary">Lihat Selengkapnya</a>
     </div>
 </div>
+<?php endforeach; ?>
+
+    </div>
+</div>
+
+<script>
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Yakin ingin menghapus pelatihan ini?',
+            text: "Data yang dihapus tidak dapat dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'hapus_pelatihan.php?id=' + id;
+            }
+        });
+    }
+</script>
 
 <!-- Include Footer -->
 <?php include 'templates/footer.php'; ?>

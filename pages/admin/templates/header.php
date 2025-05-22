@@ -315,6 +315,8 @@
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"><a class="nav-link" href="berita_pelatihan.php">Berita Pelatihan</a></li>
                                 <li class="nav-item"><a class="nav-link" href="list_pelatihan.php">List Pelatihan</a></li>
+                                <li class="nav-item"><a class="nav-link" href="tambah_berita.php">Tambah Berita</a></li>
+                                <li class="nav-item"><a class="nav-link" href="tambah_pelatihan.php">Tambah Pelatihan</a></li>
                             </ul>
                         </div>
                     </li>

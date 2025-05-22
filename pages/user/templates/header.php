@@ -322,7 +322,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#pendaftaran" aria-expanded="false" aria-controls="pendaftaran">
                             <i class="icon-grid menu-icon"></i>
                             <span class="menu-title">Pendaftaran</span>
@@ -336,7 +336,7 @@
                                 <li class="nav-item"><a class="nav-link" href="cek_status.php">Cek Status</a></li>
                             </ul>
                         </div>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#materi" aria-expanded="false" aria-controls="materi">
                             <i class="icon-grid menu-icon"></i>

@@ -12,6 +12,11 @@
         }
     ],
     "require": {
-        "mongodb/mongodb": "^2.0"
+        "mongodb/mongodb": "^2.0",
+        "setasign/fpdi": "^2.6",
+        "setasign/fpdf": "^1.8",
+        "kauffinger/php-pdftk-mcpdf": "^0.13.2",
+        "mikehaertl/pdftk2-precise-amd64": "^2.02",
+        "mikehaertl/php-pdftk": "^0.13.1"
     }
 }

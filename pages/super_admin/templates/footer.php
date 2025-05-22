@@ -35,6 +35,7 @@
     <script src="../assets/js/todolist.js"></script>
     <!-- endinject -->
     <!-- Custom js for this page-->
+    <script src="../assets/js/file-upload.js"></script>
     <script src="../assets/js/dashboard.js"></script>
     <script src="../assets/js/Chart.roundedBarCharts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
