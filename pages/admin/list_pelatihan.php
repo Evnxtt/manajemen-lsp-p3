@@ -35,7 +35,7 @@ $beritaList = $collection->find([], ['sort' => ['pembuatan' => -1]]);
 <?php if (isset($_GET['hapus'])): ?>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             <?php if ($_GET['hapus'] === 'berhasil'): ?>
                 Swal.fire({
                     icon: 'success',
@@ -78,26 +78,26 @@ if (isset($_SESSION['success_message'])) {
 <!-- partial -->
 <div class="main-panel" style="background-color: #F5F7FF;">
     <div class="container">
-<?php
-    $beritaList = $collection->find([], ['sort' => ['pembuatan' => -1]]); // Urutkan berdasarkan tanggal pembuatan
+        <?php
+        $beritaList = $collection->find([], ['sort' => ['pembuatan' => -1]]); // Urutkan berdasarkan tanggal pembuatan
 
-    foreach ($beritaList as $berita):
-        $judul = $berita['detail_pelatihan']['nama_pelatihan'] ?? '';
-        $ringkasan = $berita['detail_pelatihan']['deskripsi'] ?? '';
-        $gambar = $berita['gambar'] ?? '../assets/images/news/default.svg';
+        foreach ($beritaList as $berita):
+            $judul = $berita['detail_pelatihan']['nama_pelatihan'] ?? '';
+            $ringkasan = $berita['detail_pelatihan']['deskripsi'] ?? '';
+            $gambar = $berita['gambar'] ?? '../assets/images/training/default.svg';
 
-        $id = (string)$berita['_id'];
-?>
-<div class="card">
-    <img src="<?= htmlspecialchars($gambar) ?>" alt="news" style="max-height: 200px; object-fit: cover;">
-    <div class="card-content" style="background-color: #fffff8;">
-        <h2 class="course-title" style="line-height: 1.2;"><?= htmlspecialchars($judul) ?></h2>
-        <p><?= htmlspecialchars($ringkasan) ?></p>
-        <a href="ubah_berita.php?id=<?= $id ?>" class="btn btn-primary">Ubah</a>
-        <a href="#" class="btn btn-danger" onclick="confirmDelete('<?= $id ?>')">Hapus</a>
-    </div>
-</div>
-<?php endforeach; ?>
+            $id = (string)$berita['_id'];
+        ?>
+            <div class="card">
+                <img src="<?= htmlspecialchars($gambar) ?>" alt="news" style="max-height: 200px; object-fit: cover;">
+                <div class="card-content" style="background-color: #fffff8;">
+                    <h2 class="course-title" style="line-height: 1.2;"><?= htmlspecialchars($judul) ?></h2>
+                    <p><?= htmlspecialchars($ringkasan) ?></p>
+                    <a href="ubah_pelatihan.php?id=<?= $id ?>" class="btn btn-primary">Ubah</a>
+                    <a href="#" class="btn btn-danger" onclick="confirmDelete('<?= $id ?>')">Hapus</a>
+                </div>
+            </div>
+        <?php endforeach; ?>
 
     </div>
 </div>
