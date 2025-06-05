@@ -6,15 +6,15 @@ if (!isset($_SESSION["user_id"])) {
 }
 
 if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "user") {
-      echo "<script>
-      Swal.fire({
-        icon: 'error',
-        title: 'Anda bukan user!',
-        confirmButtonText: 'OK'
-      }).then(() => {
-        window.location.href = '../auth/login.php';
-      });
-    </script>";
+    echo "<script>
+    Swal.fire({
+      icon: 'error',
+      title: 'Anda bukan user!',
+      confirmButtonText: 'OK'
+    }).then(() => {
+      window.location.href = '../auth/login.php';
+    });
+  </script>";
   exit;
 }
 
@@ -30,7 +30,76 @@ $userData = $collection->findOne(['_id' => $userId]);
 $informasi_pribadi = $userData['informasi_pribadi'] ?? [];
 $alamat_lengkap = $userData['alamat_lengkap'] ?? [];
 
+use setasign\Fpdi\Tcpdf\Fpdi; // Ganti TCPDF
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Ambil data dari form
+    $nama_pelatihan = $_POST['nama_pelatihan'];
+    $tanggal_mulai = $_POST['tanggal_mulai'];
+    $nama_lengkap = $_POST['nama_lengkap'];
+    $jenis_kelamin = $_POST['jenis_kelamin'];
+    $tanggal_lahir = $_POST['tanggal_lahir'];
+    $alamat = $_POST['alamat'];
+    $kode_pos = $_POST['kode_pos'];
+    $kebangsaan = $_POST['kebangsaan'];
+    $riwayat_pendidikan = $_POST['riwayat_pendidikan'];
+    $nik = $_POST['nik'];
+    $paspor = $_POST['paspor'];
+    $no_tlp_rumah = $_POST['no_tlp_rumah'];
+    $email_pribadi = $_POST['email_pribadi'];
+    $no_tlp_pribadi = $_POST['no_tlp_pribadi'];
+    $nama_institusi = $_POST['nama_institusi'];
+    $jabatan = $_POST['jabatan'];
+    $alamat_kantor = $_POST['alamat_kantor'];
+    $kode_pos_kantor = $_POST['kode_pos_kantor'];
+    $no_tlp_kantor = $_POST['no_tlp_kantor'];
+    $email_kantor = $_POST['email_kantor'];
+
+    // Buat PDF dengan FPDI
+    $pdf = new Fpdi();
+    $pdf->setPrintHeader(false);
+    $pdf->setPrintFooter(false);
+    $pdf->AddPage();
+
+    // Ambil file template PDF
+    $templatePath = __DIR__ . '/Pengisian_Form_APL_latihan_Asesor.pdf';
+    $pageCount = $pdf->setSourceFile($templatePath);
+    $templateId = $pdf->importPage(1);
+    $pdf->useTemplate($templateId, 0, 0, 210); // 210mm = lebar A4
+
+    // Set font untuk isi
+    $pdf->SetFont('Helvetica', '', 10);
+
+    // ───── Isi Data di Template ─────
+    $pdf->SetXY(75, 236.5);  $pdf->Write(0, $nama_pelatihan);
+    $pdf->SetXY(75, 256);  $pdf->Write(0, $tanggal_mulai);
+    $pdf->SetXY(71, 60);  $pdf->Write(0, $nama_lengkap);
+    $pdf->SetXY(71, 76.5);  $pdf->Write(0, $jenis_kelamin);
+    $pdf->SetXY(71, 68);  $pdf->Write(0, $tanggal_lahir);
+    $pdf->SetXY(71, 92.5);  $pdf->Write(0, $alamat);
+    $pdf->SetXY(143, 100);  $pdf->Write(0, $kode_pos);
+    $pdf->SetXY(71, 84.5);  $pdf->Write(0, $kebangsaan);
+    $pdf->SetXY(72, 126);  $pdf->Write(0, $riwayat_pendidikan);
+    $pdf->SetXY(71, 106); $pdf->Write(0, $nik);
+    $pdf->SetXY(71, 114); $pdf->Write(0, $paspor);
+    $pdf->SetXY(88, 108); $pdf->Write(0, $no_tlp_rumah);
+    $pdf->SetXY(138, 115.5); $pdf->Write(0, $email_pribadi);
+    $pdf->SetXY(83, 116); $pdf->Write(0, $no_tlp_pribadi);
+
+    $pdf->SetXY(72.5, 160); $pdf->Write(0, $nama_institusi);
+    $pdf->SetXY(72.5, 171); $pdf->Write(0, $jabatan);
+    $pdf->SetXY(72.5, 180); $pdf->Write(0, $alamat_kantor);
+    $pdf->SetXY(144, 188); $pdf->Write(0, $kode_pos_kantor);
+    $pdf->SetXY(138, 108); $pdf->Write(0, $no_tlp_kantor);
+    $pdf->SetXY(87, 196); $pdf->Write(0, $no_tlp_kantor);
+    $pdf->SetXY(88, 204); $pdf->Write(0, $email_kantor);
+
+    // Output PDF ke browser
+    $pdf->Output('Formulir_Permohonan_Sertifikasi_Kompetensi.pdf', 'I');
+    exit;
+}
 ?>
+
 <!-- Include Header -->
 <?php include 'templates/header.php'; ?>
 
@@ -46,7 +115,17 @@ $alamat_lengkap = $userData['alamat_lengkap'] ?? [];
                   <p class="card-description">
                     Data Pribadi
                   </p>
-                  <form class="forms-sample" action="" method="POST">
+                  <form class="forms-sample" action="" method="POST" target="_blank">
+                    <div class="form-group">
+                      <label for="nama_pelatihan">Nama Pelatihan</label>
+                      <input type="text" class="form-control" id="nama_pelatihan" name="nama_pelatihan" 
+                      value="<?= htmlspecialchars($_GET['nama_pelatihan'] ?? ($_POST['nama_pelatihan'] ?? '')) ?>" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="tanggal_mulai">Tanggal Mulai Pelatihan</label>
+                      <input type="text" class="form-control" id="tanggal_mulai" name="tanggal_mulai"
+                      value="<?= htmlspecialchars($_GET['tanggal_mulai'] ?? ($_POST['tanggal_mulai'] ?? '')) ?>" readonly>
+                    </div>
                     <div class="form-group">
                       <label for="exampleInputName1">Nama Lengkap</label>
                       <input type="text" class="form-control" id="exampleInputName1" placeholder="Nama Lengkap" name="nama_lengkap" value="<?= ($informasi_pribadi['nama_depan'] ?? '') . ' ' . ($informasi_pribadi['nama_belakang'] ?? '') ?>">

@@ -87,7 +87,7 @@ $biaya_formatted = 'Rp ' . number_format($biaya, 0, ',', '.');
                         <p class="course-desc" style="margin-right: 50px;"><?= htmlspecialchars($deskripsi) ?></p>
                         <!-- <p class="course-desc" style="margin-right: 50px; margin-bottom: 15px;">Peserta akan dibekali dengan keterampilan teknis dan praktis dalam mengidentifikasi kerusakan ekosistem, merancang intervensi restoratif, serta memantau efektivitas pemulihan ekosistem baik di kawasan hutan, pesisir, lahan basah, maupun wilayah terdegradasi lainnya. Program ini juga memperkenalkan pendekatan ekologika, yaitu cara pandang sistemik dan holistik dalam menyelesaikan permasalahan lingkungan.</p> -->
                         <p class="price" style="left: 16px; margin: 0; margin-bottom: 20px;">Rp. <?= htmlspecialchars($biaya) ?><span class="bonus"></span></p>
-                        <a href="pendaftaran.php" class="btn btn-outline-warning btn-fw" style="max-width: 200px;">Daftar Sekarang</a>
+                        <a href="pendaftaran.php?nama_pelatihan=<?= urlencode($nama_pelatihan) ?>&tanggal_mulai=<?= urlencode($tanggal_mulai) ?>" class="btn btn-outline-warning btn-fw" style="max-width: 200px;">Daftar Sekarang</a>
                     </div>
                 </div>
               </div>   
