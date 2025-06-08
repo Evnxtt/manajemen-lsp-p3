@@ -20,27 +20,28 @@ if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "user") {
 }
 
 require '../../vendor/autoload.php';
+
 use MongoDB\Client;
 
 $client = new Client("mongodb://localhost:27017");
 $collection = $client->lsp_p3->pelatihan;
 
 if (!isset($_GET['id'])) {
-    echo "ID pelatihan tidak ditemukan.";
-    exit;
+  echo "ID pelatihan tidak ditemukan.";
+  exit;
 }
 
 $id = $_GET['id'];
 
 try {
-    $berita = $collection->findOne(['_id' => new MongoDB\BSON\ObjectId($id)]);
-    if (!$berita) {
-        echo "Data pelatihan tidak ditemukan.";
-        exit;
-    }
-} catch (Exception $e) {
-    echo "ID tidak valid.";
+  $berita = $collection->findOne(['_id' => new MongoDB\BSON\ObjectId($id)]);
+  if (!$berita) {
+    echo "Data pelatihan tidak ditemukan.";
     exit;
+  }
+} catch (Exception $e) {
+  echo "ID tidak valid.";
+  exit;
 }
 
 // Ambil data dari dokumen
@@ -73,26 +74,83 @@ $biaya_formatted = 'Rp ' . number_format($biaya, 0, ',', '.');
 
 <?php include 'templates/header.php'; ?>
 
-  <div class="main-panel">
-    <div class="content-wrapper" style="max-width: 1200px; margin: 0 auto; padding: 20px;">
-        <div class="card-body-besar" style="background-color: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-              <div class="card" style="width: 910px; margin-bottom: 20px;">
-                <div class="card-content" style="background-color: #fffff8; position: relative; display: flex; gap: 24px; padding: 20px; border-radius: 12px; align-items: flex-start; height: auto;">
-                    <div style="display: flex; flex-direction: column; align-items: flex-start;">
-                        <img src="<?= htmlspecialchars($gambar) ?>" style="max-width: 260px; max-height: 260px; height: auto; border-radius: 25px; object-fit: contain; margin-bottom: 12px;" alt="news">
-                        <!-- <b class="ratings" style="margin-top: 8px; margin-left: 5px; font-size: 18px;">⭐ 5 (102)</b> -->
-                    </div>
-                    <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-start;">
-                        <h2 class="course-title" style="line-height: 1.2; font-size: 22px; margin-bottom: 10px; margin-top: 5px;"><?= htmlspecialchars($nama_pelatihan) ?></h2>
-                        <p class="course-desc" style="margin-right: 50px;"><?= htmlspecialchars($deskripsi) ?></p>
-                        <!-- <p class="course-desc" style="margin-right: 50px; margin-bottom: 15px;">Peserta akan dibekali dengan keterampilan teknis dan praktis dalam mengidentifikasi kerusakan ekosistem, merancang intervensi restoratif, serta memantau efektivitas pemulihan ekosistem baik di kawasan hutan, pesisir, lahan basah, maupun wilayah terdegradasi lainnya. Program ini juga memperkenalkan pendekatan ekologika, yaitu cara pandang sistemik dan holistik dalam menyelesaikan permasalahan lingkungan.</p> -->
-                        <p class="price" style="left: 16px; margin: 0; margin-bottom: 20px;">Rp. <?= htmlspecialchars($biaya) ?><span class="bonus"></span></p>
-                        <a href="pendaftaran.php?nama_pelatihan=<?= urlencode($nama_pelatihan) ?>&tanggal_mulai=<?= urlencode($tanggal_mulai) ?>" class="btn btn-outline-warning btn-fw" style="max-width: 200px;">Daftar Sekarang</a>
-                    </div>
-                </div>
-              </div>   
+<div class="main-panel">
+  <div class="content-wrapper" style="max-width: auto; margin: 0 auto; padding: 20px;">
+    <div class="card-body-besar" style="background-color: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+      <img src="<?= htmlspecialchars($gambar) ?>" style="width: 100%; height: auto; border-radius: 20px; object-fit: cover; margin-bottom: 20px;" alt="news">
+      <h2 class="course-title" style="font-size: 25px; margin-bottom: 16px;"><?= htmlspecialchars($nama_pelatihan) ?></h2>
+      <div style="display: flex; flex-direction: row; justify-content: flex-start;">
+        <div class="card-modul" style="max-width:50%; margin-right:5%">
+          <p style="margin-bottom: 30px;"><?= htmlspecialchars($deskripsi) ?></p>
+          <p class="font-weight-bold" style="font-size: 17px; margin-bottom: 6px;">Metode Pelatihan :</p>
+          <ul class="list-star">
+            <?php if (isset($berita['metode']) && is_array($berita['metode'])): ?>
+              <?php foreach ($berita['metode'] as $m): ?>
+                <li style="font-size: 16px; margin-bottom: 5px;"><?= htmlspecialchars($m) ?></li>
+              <?php endforeach; ?>
+            <?php else: ?>
+              <li style="font-size: 16px; margin-bottom: 5px;"><?= htmlspecialchars($metode) ?></li>
+            <?php endif; ?>
+          </ul>
+          <blockquote class="blockquote" style="margin: 0%;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <i class="ti-location-pin" style="font-size: 15px;"></i>
+              <span style="font-weight: bold; font-size: 15px;">Tempat Pelatihan :</span>
             </div>
+            <p style="margin-bottom: 30px; margin-left: 22px; margin-top: 6px;"><?= htmlspecialchars($tempat) ?></p>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <i class="mdi mdi-timetable" style="font-size: 15px; line-height: 1;"></i>
+              <span style="font-weight: bold; font-size: 15px;">Tanggal Pelatihan :</span>
+            </div>
+            <p style="margin-bottom: 30px; margin-left: 22px; margin-top: 6px;"><?= htmlspecialchars($tanggal_mulai) ?></p>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <i class="mdi mdi-timelapse" style="font-size: 15px; line-height: 1;"></i>
+              <span style="font-weight: bold; font-size: 15px;">Durasi Pelatihan :</span>
+            </div>
+            <p style="margin-left: 22px; margin-top: 6px;"><?= htmlspecialchars($durasi) ?> Jam</p>
+          </blockquote>
         </div>
+        <div class="card-modul" style="max-width:40%; display: flex; flex-direction: column;">
+          <div style="margin-left: 20px;">
+            <p class="font-weight-bold" style="font-size: 15px; margin-bottom: 6px;">Persyaratan Peserta :</p>
+            <?php if (is_array($persyaratan)): ?>
+              <?php foreach ($persyaratan as $p): ?>
+                <li style="font-size: 14px; margin-bottom: 5px;"><?= htmlspecialchars($p) ?></li>
+              <?php endforeach; ?>
+            <?php else: ?>
+              <li style="font-size: 14px; margin-bottom: 5px;"><?= htmlspecialchars($persyaratan) ?></li>
+            <?php endif; ?><br>
+          </div>
+          <div class="card card-light-blue" style="width: 100%; margin-bottom: 15px;">
+            <div class="card-body">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="mdi mdi-account-multiple" style="font-size: 20px; color: #ffffff; line-height: 1;"></i>
+                <span style="font-weight: bold; font-size: 90%; margin-bottom: 1px;">KUOTA PESERTA</span>
+              </div>
+              <span style="font-size: 180%; margin-top: 20px;"><?= htmlspecialchars($kuota) ?></span>
+            </div>
+          </div>
+          <!-- <div class="card card-light-blue" style="width: 100%; margin-bottom: 20px;">
+            <div class="card-body">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="mdi mdi-star" style="font-size: 20px; color: #ffffff; line-height: 1;"></i>
+                <span style="font-weight: bold; font-size: 90%; margin-bottom: 1px;">RATING PELATIHAN</span>
+              </div>
+              <span style="font-size: 180%; margin-top: 20px;">
+                <?= isset($berita['rating']) ? htmlspecialchars($berita['rating']) : '9,8/10' ?>
+              </span>
+            </div>
+          </div> -->
+          <div class="card-body" style="margin-bottom: 1px;">
+            <h5 class="card-title" style="font-size: 16px; font-weight: bold;">Status Pelatihan</h5>
+            <p class="card-text" style="font-size: 14px;"><?= htmlspecialchars($status) ?></p>
+          </div>
+        </div>
+      </div><br>
+      <a href="pendaftaran.php?id_pelatihan=<?= urlencode($id) ?>&nama_pelatihan=<?= urlencode($nama_pelatihan) ?>&tanggal_mulai=<?= urlencode($tanggal_mulai) ?>" class="btn btn-inverse-success btn-fw" style="width: 100%; height: 8%; margin-left: 15px; font-size: 17px;">Daftar Sekarang</a>
+      <!-- <button type="button" class="btn btn-inverse-success btn-fw" style="width: 100%; height: 8%; margin-left: 15px; font-size: 17px;">Daftar Sekarang</button> -->
     </div>
+  </div>
+</div>
 
 <?php include 'templates/footer.php'; ?>

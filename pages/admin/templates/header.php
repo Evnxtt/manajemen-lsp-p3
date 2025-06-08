@@ -308,27 +308,38 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#informasi" aria-expanded="false" aria-controls="informasi">
                             <i class="icon-columns menu-icon"></i>
-                            <span class="menu-title">Informasi</span>
+                            <span class="menu-title">Tambah Data</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="collapse" id="informasi">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"><a class="nav-link" href="berita_pelatihan.php">Berita Pelatihan</a></li>
-                                <li class="nav-item"><a class="nav-link" href="list_pelatihan.php">List Pelatihan</a></li>
                                 <li class="nav-item"><a class="nav-link" href="tambah_berita.php">Tambah Berita</a></li>
                                 <li class="nav-item"><a class="nav-link" href="tambah_pelatihan.php">Tambah Pelatihan</a></li>
                             </ul>
                         </div>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#data" aria-expanded="false" aria-controls="data">
+                            <i class="icon-columns menu-icon"></i>
+                            <span class="menu-title">List Data</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="data">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"><a class="nav-link" href="berita_pelatihan.php">Berita Pelatihan</a></li>
+                                <li class="nav-item"><a class="nav-link" href="list_pelatihan.php">List Pelatihan</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                             <i class="icon-layout menu-icon"></i>
-                            <span class="menu-title">Jadwal</span>
+                            <span class="menu-title">Verifikasi</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="collapse" id="ui-basic">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Pelatihan</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="verifikasi_pembayaran.php">Pembayaran</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Sertifikasi</a></li>
                             </ul>
                         </div>

@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
     <link rel="stylesheet" href="../assets/vendors/ti-icons/css/themify-icons.css">
     <link rel="stylesheet" type="text/css" href="../assets/js/select.dataTables.min.css">
+    <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="../assets/css/vertical-layout-light/style.css">
@@ -322,22 +323,20 @@
                             </ul>
                         </div>
                     </li>
-                    <!-- <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#pendaftaran" aria-expanded="false" aria-controls="pendaftaran">
                             <i class="icon-grid menu-icon"></i>
-                            <span class="menu-title">Pendaftaran</span>
+                            <span class="menu-title">Pelatihan</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="collapse" id="pendaftaran">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"><a class="nav-link" href="pendaftaran.php">Pendaftaran</a></li>
-                                <li class="nav-item"><a class="nav-link" href="unduh_formulir.php">Unduh Formulir</a></li>
-                                <li class="nav-item"><a class="nav-link" href="unggah_formulir.php">Unggah Formulir</a></li>
                                 <li class="nav-item"><a class="nav-link" href="cek_status.php">Cek Status</a></li>
+                                <li class="nav-item"><a class="nav-link" href="cek_status.php">Pelatihan Anda</a></li>
                             </ul>
                         </div>
-                    </li> -->
-                    <li class="nav-item">
+                    </li>
+                    <!-- <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#materi" aria-expanded="false" aria-controls="materi">
                             <i class="icon-grid menu-icon"></i>
                             <span class="menu-title">Materi & Modul</span>
@@ -389,6 +388,5 @@
                                 <li class="nav-item"> <a class="nav-link" href="pages/charts/status_kelulusan.html">Unduh Sertifikat</a></li>
                             </ul>
                         </div>
-                    </li>
-                    </li>
+                    </li> -->
             </nav>
