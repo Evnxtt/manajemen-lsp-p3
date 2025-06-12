@@ -340,11 +340,23 @@
                         <div class="collapse" id="ui-basic">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="verifikasi_pembayaran.php">Pembayaran</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Sertifikasi</a></li>
+                                <!-- <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Sertifikasi</a></li> -->
                             </ul>
                         </div>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#lengkapi" aria-expanded="false" aria-controls="lengkapi">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Lengkapi</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="lengkapi">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="list_lengkapi_pelatihan.php">Pelatihan</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <!-- <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
                             <i class="icon-columns menu-icon"></i>
                             <span class="menu-title">Sertifikasi</span>
@@ -383,7 +395,7 @@
                                 <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Verifikasi Formulir</a></li>
                             </ul>
                         </div>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
                             <i class="icon-contract menu-icon"></i>

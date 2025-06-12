@@ -23,7 +23,9 @@ use MongoDB\Client;
 
 $client = new Client("mongodb://localhost:27017");
 $collection = $client->lsp_p3->pelatihan;
+$collectionModul = $client->lsp_p3->modul_pelatihan;
 
+// Ambil semua pelatihan
 $beritaList = $collection->find([], ['sort' => ['pembuatan' => -1]]);
 
 ?>
@@ -75,19 +77,22 @@ if (isset($_SESSION['success_message'])) {
 
 <!-- partial -->
 
-<!-- partial -->
 <div class="main-panel" style="background-color: #F5F7FF;">
     <div class="container">
         <?php
-        $beritaList = $collection->find([], ['sort' => ['pembuatan' => -1]]); // Urutkan berdasarkan tanggal pembuatan
-
         foreach ($beritaList as $berita):
+            $id = (string)$berita['_id'];
+
+            // Cek status_kelengkapan di modul_pelatihan
+            $modul = $collectionModul->findOne(['id_pelatihan' => $id]);
+            if (!$modul || !isset($modul['status_kelengkapan']) || $modul['status_kelengkapan'] !== 'lengkap') {
+                continue; // Skip jika tidak lengkap
+            }
+
             $judul = $berita['detail_pelatihan']['nama_pelatihan'] ?? '';
             $ringkasan = $berita['detail_pelatihan']['deskripsi'] ?? '';
             $biaya = $berita['detail_pelatihan']['biaya'] ?? '';
             $gambar = $berita['gambar'] ?? '../assets/images/training/default.svg';
-
-            $id = (string)$berita['_id'];
         ?>
             <div class="card">
                 <img src="<?= htmlspecialchars($gambar) ?>" alt="news" style="max-height: 200px; object-fit: cover;">
@@ -99,7 +104,6 @@ if (isset($_SESSION['success_message'])) {
                 </div>
             </div>
         <?php endforeach; ?>
-
     </div>
 </div>
 

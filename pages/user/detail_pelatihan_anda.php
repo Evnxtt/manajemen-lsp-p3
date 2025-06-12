@@ -24,10 +24,7 @@ require '../../vendor/autoload.php';
 use MongoDB\Client;
 
 $client = new Client("mongodb://localhost:27017");
-$collectionPelatihan = $client->lsp_p3->pelatihan;
-$collectionPendaftaran = $client->lsp_p3->pendaftaran_pelatihan;
-
-$userId = new MongoDB\BSON\ObjectId($_SESSION['user_id']);
+$collection = $client->lsp_p3->pelatihan;
 
 if (!isset($_GET['id'])) {
     echo "ID pelatihan tidak ditemukan.";
@@ -36,22 +33,8 @@ if (!isset($_GET['id'])) {
 
 $id = $_GET['id'];
 
-// Cari data pendaftaran_pelatihan yang sesuai user dan pelatihan
-$pendaftaran = $collectionPendaftaran->findOne([
-    'id_user' => $userId,
-    'id_pelatihan' => new MongoDB\BSON\ObjectId($id)
-]);
-
-if (!$pendaftaran) {
-    echo "Data pendaftaran tidak ditemukan.";
-    exit;
-}
-
-$id_pendaftaran = (string)$pendaftaran['_id'];
-
-// Ambil data pelatihan
 try {
-    $berita = $collectionPelatihan->findOne(['_id' => new MongoDB\BSON\ObjectId($id)]);
+    $berita = $collection->findOne(['_id' => new MongoDB\BSON\ObjectId($id)]);
     if (!$berita) {
         echo "Data pelatihan tidak ditemukan.";
         exit;
@@ -59,81 +42,6 @@ try {
 } catch (Exception $e) {
     echo "ID tidak valid.";
     exit;
-}
-
-// Handle upload
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $errors = [];
-    $buktiPembayaranPath = '';
-    $buktiPendaftaranPath = '';
-
-    // Path upload absolut
-    $uploadDir = __DIR__ . '/../../assets/uploads/';
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
-    }
-
-    // Cek apakah sudah pernah upload pembayaran untuk pendaftaran ini
-    if (isset($pendaftaran['pembayaran'])) {
-        $errors[] = "Anda sudah pernah mengupload pembayaran untuk pendaftaran ini.";
-    }
-
-    // Validasi dan upload file
-    $allowed_ext = ['jpg', 'jpeg', 'png', 'pdf'];
-
-    if (!empty($_FILES['img']['name'][0])) {
-        $ext = strtolower(pathinfo($_FILES['img']['name'][0], PATHINFO_EXTENSION));
-        if (!in_array($ext, $allowed_ext)) {
-            $errors[] = "Bukti pembayaran hanya boleh berupa file JPG, JPEG, PNG, atau PDF.";
-        } else {
-            $buktiPembayaranPath = $uploadDir . 'bukti_pembayaran_' . $id_pendaftaran . '.' . $ext;
-            $dbBuktiPembayaranPath = 'assets/uploads/bukti_pembayaran_' . $id_pendaftaran . '.' . $ext;
-            move_uploaded_file($_FILES['img']['tmp_name'][0], $buktiPembayaranPath);
-        }
-    } else {
-        $errors[] = "Bukti pembayaran wajib diupload.";
-    }
-
-    if (!empty($_FILES['img']['name'][1])) {
-        $ext = strtolower(pathinfo($_FILES['img']['name'][1], PATHINFO_EXTENSION));
-        if (!in_array($ext, $allowed_ext)) {
-            // Redirect dengan GET agar SweetAlert muncul di halaman GET
-            header("Location: pembayaran.php?id=$id&error=tipe_file");
-            exit;
-        } else {
-            $buktiPendaftaranPath = $uploadDir . 'bukti_pendaftaran_' . $id_pendaftaran . '.' . $ext;
-            $dbBuktiPendaftaranPath = 'assets/uploads/bukti_pendaftaran_' . $id_pendaftaran . '.' . $ext;
-            move_uploaded_file($_FILES['img']['tmp_name'][1], $buktiPendaftaranPath);
-        }
-    } else {
-        // Redirect dengan GET agar SweetAlert muncul di halaman GET
-        header("Location: pembayaran.php?id=$id&error=bukti_pendaftaran");
-        exit;
-    }
-
-    // Update ke collection pendaftaran_pelatihan jika tidak ada error
-    if (empty($errors)) {
-        $collectionPendaftaran->updateOne(
-            ['_id' => $pendaftaran['_id']],
-            [
-                '$set' => [
-                    'pembayaran' => [
-                        'bukti_pembayaran' => $dbBuktiPembayaranPath,
-                        'bukti_pendaftaran' => $dbBuktiPendaftaranPath,
-                        'tanggal_pembayaran' => new MongoDB\BSON\UTCDateTime()
-                    ],
-                    'status' => 'Menunggu Verifikasi'
-                ]
-            ]
-        );
-        // Redirect ke GET agar SweetAlert muncul di halaman GET
-        header("Location: pembayaran.php?id=$id&success=1");
-        exit;
-    } else {
-        foreach ($errors as $err) {
-            echo "<div class='alert alert-danger'>$err</div>";
-        }
-    }
 }
 
 // Ambil data dari dokumen
@@ -165,44 +73,6 @@ $biaya_formatted = 'Rp ' . number_format($biaya, 0, ',', '.');
 ?>
 
 <?php include 'templates/header.php'; ?>
-
-<?php if (isset($_GET['error']) && $_GET['error'] === 'bukti_pendaftaran'): ?>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Gagal!',
-            text: 'Bukti pendaftaran wajib diupload.',
-            confirmButtonText: 'OK'
-        });
-    </script>
-<?php endif; ?>
-
-<?php if (isset($_GET['error']) && $_GET['error'] === 'tipe_file'): ?>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Gagal!',
-            text: 'File yang diupload hanya boleh JPG, JPEG, PNG, atau PDF.',
-            confirmButtonText: 'OK'
-        });
-    </script>
-<?php endif; ?>
-
-<?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil!',
-            text: 'Bukti pembayaran dan pendaftaran berhasil diupload!',
-            confirmButtonText: 'OK'
-        }).then(() => {
-            window.location.href = 'cek_status.php';
-        });
-    </script>
-<?php endif; ?>
 
 <div class="main-panel">
     <div class="content-wrapper" style="max-width: auto; margin: 0 auto; padding: 20px;">
@@ -260,49 +130,27 @@ $biaya_formatted = 'Rp ' . number_format($biaya, 0, ',', '.');
                             <span style="font-size: 180%; margin-top: 20px;"><?= htmlspecialchars($kuota) ?></span>
                         </div>
                     </div>
+                    <!-- <div class="card card-light-blue" style="width: 100%; margin-bottom: 20px;">
+            <div class="card-body">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="mdi mdi-star" style="font-size: 20px; color: #ffffff; line-height: 1;"></i>
+                <span style="font-weight: bold; font-size: 90%; margin-bottom: 1px;">RATING PELATIHAN</span>
+              </div>
+              <span style="font-size: 180%; margin-top: 20px;">
+                <?= isset($berita['rating']) ? htmlspecialchars($berita['rating']) : '9,8/10' ?>
+              </span>
+            </div>
+          </div> -->
                     <div class="card-body" style="margin-bottom: 1px;">
                         <h5 class="card-title" style="font-size: 16px; font-weight: bold;">Status Pelatihan</h5>
                         <p class="card-text" style="font-size: 14px;"><?= htmlspecialchars($status) ?></p>
                     </div>
                 </div>
             </div><br>
-            <form method="POST" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label>Upload Bukti Pembayaran</label>
-                    <input type="file" name="img[]" class="file-upload-default">
-                    <div class="input-group col-xs-12">
-                        <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Image">
-                        <span class="input-group-append">
-                            <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Upload Bukti Pendaftaran</label>
-                    <input type="file" name="img[]" class="file-upload-default">
-                    <div class="input-group col-xs-12">
-                        <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Image">
-                        <span class="input-group-append">
-                            <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                        </span>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-inverse-success btn-fw" style="width: 100%; height: 8%; margin-left: 15px; font-size: 17px;">Selesaikan Pembayaran</button>
-            </form>
+            <a href="modul_pelatihan.php?id_pelatihan=<?= urlencode($id) ?>&nama_pelatihan=<?= urlencode($nama_pelatihan) ?>&tanggal_mulai=<?= urlencode($tanggal_mulai) ?>" class="btn btn-inverse-success btn-fw" style="width: 100%; height: 8%; margin-left: 15px; font-size: 17px;">Lihat Modul Pelatihan</a>
+            <!-- <button type="button" class="btn btn-inverse-success btn-fw" style="width: 100%; height: 8%; margin-left: 15px; font-size: 17px;">Daftar Sekarang</button> -->
         </div>
     </div>
 </div>
-<script>
-    document.querySelectorAll('.file-upload-browse').forEach(function(btn, idx) {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.file-upload-default')[idx].click();
-        });
-    });
-    document.querySelectorAll('.file-upload-default').forEach(function(input, idx) {
-        input.addEventListener('change', function() {
-            var fileName = input.value.split('\\').pop();
-            document.querySelectorAll('.file-upload-info')[idx].value = fileName;
-        });
-    });
-</script>
+
 <?php include 'templates/footer.php'; ?>

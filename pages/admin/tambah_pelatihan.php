@@ -86,7 +86,10 @@ if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "admin") {
             </div>
             <div class="form-group">
               <label for="exampleInputPassword4">Metode Pelatihan</label>
-              <input type="text" class="form-control" id="exampleInputPassword4" name="metode" placeholder="Metode Pelatihan" required>
+              <select class="form-control" name="metode">
+                <option value="Offline">Offline</option>
+                <option value="Online">Online</option>
+              </select>
             </div>
             <div class="form-group">
               <label for="exampleInputPassword4">Tempat Pelatihan</label>
@@ -145,6 +148,7 @@ if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "admin") {
 require '../../vendor/autoload.php';
 $client = new MongoDB\Client("mongodb://localhost:27017");
 $collection = $client->lsp_p3->pelatihan;
+$collectionModul = $client->lsp_p3->modul_pelatihan;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $id_pelatihan = $_POST['pelatihan'];
@@ -198,7 +202,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
   // Struktur utama dokumen
   $data = [
-    'id_pelatihan' => $id_pelatihan,
     'detail_pelatihan' => $detailPelatihan,
     'metode' => $metode,
     'tempat' => $tempat,
@@ -213,9 +216,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     "gambar" => $uploadedFilePath,
   ];
 
+  // Insert ke pelatihan
   $result = $collection->insertOne($data);
 
-  if ($result->getInsertedCount() > 0) {
+  // Ambil _id yang baru dibuat
+  $id_pelatihan = $result->getInsertedId();
+
+  // Insert ke modul_pelatihan dengan id_pelatihan dari _id pelatihan
+  $dataModul = [
+    'id_pelatihan' => (string)$id_pelatihan, // simpan sebagai string agar mudah query
+    'status_kelengkapan' => 'belum_lengkap'
+  ];
+  $resultModul = $collectionModul->insertOne($dataModul);
+
+  if ($result->getInsertedCount() > 0 && $resultModul->getInsertedCount() > 0) {
     echo "<script>
         Swal.fire({
           icon: 'success',

@@ -332,7 +332,7 @@
                         <div class="collapse" id="pendaftaran">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"><a class="nav-link" href="cek_status.php">Cek Status</a></li>
-                                <li class="nav-item"><a class="nav-link" href="cek_status.php">Pelatihan Anda</a></li>
+                                <li class="nav-item"><a class="nav-link" href="pelatihan_anda.php">Pelatihan Anda</a></li>
                             </ul>
                         </div>
                     </li>

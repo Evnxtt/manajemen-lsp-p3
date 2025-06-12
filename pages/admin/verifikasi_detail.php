@@ -115,7 +115,6 @@ include 'templates/header.php';
                     <?php else: ?>
                         <p class="text-danger">Bukti pembayaran tidak tersedia.</p>
                     <?php endif; ?>
-
                     <h5 class="mt-3">Bukti Pendaftaran:</h5>
                     <?php if (!empty($pendaftaran['pembayaran']['bukti_pendaftaran'])): ?>
                         <?php $bukti = $pendaftaran['pembayaran']['bukti_pendaftaran']; ?>

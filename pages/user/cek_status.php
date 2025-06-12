@@ -35,20 +35,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['batal_pendaftaran'], 
     ['_id' => new MongoDB\BSON\ObjectId($_POST['batal_id'])],
     ['$set' => ['status' => 'dibatalkan']]
   );
-  echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-  echo "<script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Dibatalkan!',
-            text: 'Pendaftaran berhasil dibatalkan.',
-            confirmButtonText: 'OK'
-        }).then(() => {
-            window.location.href = 'cek_status.php';
-        });
-    </script>";
+  header("Location: cek_status.php?batal=success");
   exit;
 }
-
+?>
+<?php if (isset($_GET['batal']) && $_GET['batal'] === 'success'): ?>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    Swal.fire({
+      icon: 'success',
+      title: 'Dibatalkan!',
+      text: 'Pendaftaran berhasil dibatalkan.',
+      confirmButtonText: 'OK'
+    });
+  </script>
+<?php endif; ?>
+<?php
 // Ambil semua pendaftaran user ini
 $pendaftaranList = $collectionPendaftaran->find(['id_user' => $userId]);
 ?>
@@ -81,14 +83,14 @@ $pendaftaranList = $collectionPendaftaran->find(['id_user' => $userId]);
           <h2 class="course-title" style="line-height: 1.2;"><?= htmlspecialchars($judul) ?></h2>
           <p><?= htmlspecialchars($ringkasan) ?></p>
           <p><b>Status Pendaftaran:</b> <?= htmlspecialchars($pendaftaran['status'] ?? '-') ?></p>
-          <?php if ($status === 'menunggu verifikasi'): ?>
+          <?php if ($status === 'dibatalkan'): ?>
+            <button class="btn btn-danger" style="width:100%;color:#fff;cursor:default;" disabled>Dibatalkan</button>
+          <?php elseif ($status === 'menunggu verifikasi'): ?>
             <button class="btn btn-warning" style="width:100%;color:#fff;cursor:default;" disabled>Menunggu Verifikasi</button>
           <?php elseif ($status === 'terverifikasi'): ?>
             <button class="btn btn-primary" style="width:100%;color:#fff;cursor:default;" disabled>Terverifikasi</button>
           <?php elseif ($status === 'ditolak'): ?>
-            <button class="btn btn-danger" style="width:100%;color:#fff;cursor:default;" disabled>Ditolak</button>
-          <?php elseif ($status === 'dibatalkan'): ?>
-            <button class="btn btn-secondary" style="width:100%;color:#fff;cursor:default;" disabled>Dibatalkan</button>
+            <button class="btn btn-secondary" style="width:100%;color:#fff;cursor:default;" disabled>Ditolak</button>
           <?php elseif ($status === 'menunggu pembayaran'): ?>
             <a href="pembayaran.php?id=<?= $id ?>" class="btn btn-primary" style="width:100%;">Lakukan Pembayaran</a>
           <?php endif; ?>
