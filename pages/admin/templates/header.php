@@ -328,6 +328,7 @@
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"><a class="nav-link" href="berita_pelatihan.php">Berita Pelatihan</a></li>
                                 <li class="nav-item"><a class="nav-link" href="list_pelatihan.php">List Pelatihan</a></li>
+                                <li class="nav-item"><a class="nav-link" href="pelatihan_berlangsung.php">Pelatihan Berlangsung</a></li>
                             </ul>
                         </div>
                     </li>
